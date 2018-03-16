@@ -24,6 +24,7 @@ namespace TimeManager
             _notifyIcon.ContextMenuStrip = _menu;
             _notifyIcon.Visible = true;
             _notifyIcon.Icon = Resources.clock;
+            _notifyIcon.DoubleClick += (sender, e) => OnShowClicked?.Invoke(this, e);
 
             _menu.Items.AddRange(new ToolStripItem[] { _itemClose, _itemShow });
 
