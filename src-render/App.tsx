@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 const electron = window.require("electron");
 
 function App() {
   const [files, setFiles] = useState<string[]>([]);
+  const [background, setBackground] = useState('');
 
   async function onExit() {
     //electron.remote.app.exit();
@@ -19,28 +19,30 @@ function App() {
     setFiles(result);
   }
 
+  async function close() {
+    electron.remote.getCurrentWindow().close();
+  }
+
+  useEffect(() => {
+    const gColor = () => Math.round(Math.random()) * 100 + 155;
+
+    const bg = `rgb(${gColor()}, ${gColor()}, ${gColor()})`;
+    setBackground(bg);
+  }, []);
+
+  async function createSecondWindow() {
+    await electron.ipcRenderer.invoke('open-second-window');
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={onExit}>
-          Execute
-        </button>
-        {files.map((file, index) =>
-          <p key={index}>{file}</p>
-        )}
-      </header>
+    <div className="test-circle" style={{ background }}>
+      <p>Hello World!</p>
+      <button onClick={createSecondWindow}>
+        Open Second.
+      </button>
+      <button onClick={close}>
+        Close
+      </button>
     </div>
   );
 }

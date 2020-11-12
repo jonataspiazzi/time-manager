@@ -16,7 +16,7 @@ function createWindow() {
   });
 
   mainWindow.webContents.openDevTools();
-  mainWindow.maximize();
+  //mainWindow.maximize();
 
   mainWindow.loadURL(isDev
     ? `http://localhost:3000`
@@ -26,6 +26,7 @@ function createWindow() {
     mainWindow = null
   });
 
+  /*
   const tray = new Tray('public/favicon.ico');
 
   const contextMenu = Menu.buildFromTemplate([
@@ -36,7 +37,7 @@ function createWindow() {
   ]);
 
   tray.setContextMenu(contextMenu);
-  tray.setToolTip('This is my application.');
+  tray.setToolTip('This is my application.');*/
 }
 
 app.on('ready', createWindow);
@@ -56,3 +57,28 @@ app.on('activate', () => {
 ipcMain.handle('some-specific-action', (event, num) => {
   return fs.readdirSync('D:\\Documents').filter((value, index) => index < num);
 });
+
+ipcMain.handle('open-second-window', () => {
+  createSecondWindow();
+});
+
+function createSecondWindow() {
+  const window = new BrowserWindow({
+    width: 300,
+    height: 300,
+    frame: false,
+    transparent: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true
+    }
+  });
+
+  //mainWindow.webContents.openDevTools();
+  //mainWindow.maximize();
+
+  window.loadURL(isDev
+    ? `http://localhost:3000`
+    : `file://${path.join(__dirname, '../public/index.html')}`);
+}
