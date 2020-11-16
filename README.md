@@ -40,8 +40,6 @@ A simple pomodoro clock.
 
 - **Long Break** `(number)`: Time in minutes of a long break.
 
-- **Cycles Before Long Break** `(number)`: Number of cycles to be executed before a long break.
-
 - **Current Cycle** `(number)`: Number of the current cycle of pomodoro.
 
 - **Enable Audio** `(boolean)`: Defines if an audio should play at the end of a cycle
@@ -63,8 +61,6 @@ A simple pomodoro clock.
 - **Stop**: Stop the current cycle.
 
 - **Reset**: Stop + Start current cycle.
-
-- **Set Pomodoro Cycle**: Set the number of the current pomodoro cycle.
 
 # Activity Log
 

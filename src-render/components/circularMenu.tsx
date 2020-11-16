@@ -1,5 +1,6 @@
 import { loadavg } from 'os';
 import React, { useEffect, useRef, useState } from 'react';
+import { Pomodoro } from '../core/pomodoro';
 import svg from './circular-menu.svg';
 
 function getRulerClipMaskItem(element: HTMLElement | null, childName: string): SVGElement {
@@ -60,7 +61,13 @@ export default function CircularMenu() {
       clipMaskHl.style.transformOrigin = transformOrigin;
     }
 
-    setPercentage(.98);
+    console.log('before creating pomodoro');
+    const p1 = new Pomodoro();
+    const p2 = new Pomodoro();
+
+
+    console.log('value', p1, p2);
+
   }
 
   /**
