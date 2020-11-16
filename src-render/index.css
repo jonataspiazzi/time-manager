@@ -13,3 +13,37 @@ html, body {
   border-radius: 100vw;
   background: red;
 }
+
+.circular-menu {
+  margin: 10px;
+}
+
+.circular-menu > svg > g [id^=button] {
+  cursor: pointer;
+}
+
+.circular-menu > svg > g [id^=button] [id^=highlight] {
+  opacity: 0;
+}
+
+.circular-menu > svg > g [id^=button] > [id^=background] {
+  opacity: 1;
+}
+
+.circular-menu > svg > g [id^=button] [id^=children] {
+  opacity: 0;
+  transition: opacity .6s;
+  transition-timing-function: ease;
+}
+
+.circular-menu > svg > g [id^=button]:hover > [id^=highlight] {
+  opacity: 1;
+}
+
+.circular-menu > svg > g [id^=button]:hover > [id^=background] {
+  opacity: 0;
+}
+
+.circular-menu > svg > g [id^=button]:hover [id^=children] {
+  opacity: 1;
+}

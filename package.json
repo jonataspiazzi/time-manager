@@ -5,13 +5,14 @@
   "main": "src-main/index.ts",
   "homepage": "./",
   "scripts": {
-    "render.dev": "cross-env BROWSER=none react-app-rewired start",
+    "render.dev": "react-app-rewired start",
+    "render.dev.bn": "cross-env BROWSER=none react-app-rewired start",
     "render.build": "react-app-rewired build",
     "render.test": "react-app-rewired test",
     "main.tsc": "tsc --watch --project ./src-main/tsconfig.json",
     "main.exec": "cross-env NODE_ENV=dev nodemon --exec \"\"electron ./dist-main/index.js\"\"",
     "main.dev": "concurrently \"npm run main.tsc\" \"npm run main.exec\"",
-    "dev": "concurrently \"npm run render.dev\" \"npm run main.dev\""
+    "dev": "concurrently \"npm run render.dev.bn\" \"npm run main.dev\""
   },
   "build": {
     "appId": "time.manager",
