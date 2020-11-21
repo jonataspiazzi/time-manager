@@ -1,90 +1,32 @@
-import { loadavg } from 'os';
 import React, { useEffect, useRef, useState } from 'react';
-import { Pomodoro } from '../core/pomodoro';
-import svg from './circular-menu.svg';
+import { PomodoroCycle } from '../core/pomodoro';
+import { CircularMenuSvgHelper } from '../helpers/circularMenuSvgHelper';
 
-function getRulerClipMaskItem(element: HTMLElement | null, childName: string): SVGElement {
-  const item = element?.querySelector(`svg #ruler > g[id^=${childName}] g`);
-  if (!item) return null;
-
-  const style = window.getComputedStyle(item);
-  if (!style) return null;
-
-  const clipPath = style.clipPath;
-  if (!clipPath) return;
-
-  const id = /url\(\"#(?<id>[A-Za-z0-9-_]+)\"\)/g.exec(clipPath)?.groups?.id;
-
-  const tags = element?.querySelector(`#${id}`)?.children;
-
-  if (!tags || !tags.length) return null;
-
-  return tags[0] as SVGElement;
+export interface CircularMenuProps {
+  pomodoroCurrentCycle: PomodoroCycle;
+  pomodoroCurrentTime: number;
+  pomodoroCurrentCycleDuration: number;
 }
 
-function getRulerTransformOrigin(element: HTMLElement | null) {
-  const centerTag = element?.querySelector('svg #helpers #center') as SVGRectElement;
-  const x = Number(centerTag.x.baseVal.value);
-  const y = Number(centerTag.y.baseVal.value);
-
-  if (isNaN(x)) return null;
-  if (isNaN(y)) return null;
-
-  const root = element?.querySelector('svg') as SVGSVGElement;
-  const viewBox = root?.viewBox?.baseVal;
-  if (!viewBox) return null;
-
-  const { width, height } = viewBox;
-
-  return `${(100 * x / width).toPrecision(4)}% ${(100 * y / height).toPrecision(4)}%`;
-}
-
-export default function CircularMenu() {
+export default function CircularMenu(props: CircularMenuProps) {
   const [menu, setMenu] = useState(`<p>Loading</p>`);
+  const [svgHelper] = useState<CircularMenuSvgHelper>(new CircularMenuSvgHelper());
   const refDiv = useRef<HTMLDivElement>(null);
 
   async function load() {
-    const req = await fetch(svg);
-    const msg = await req.text();
+    const svg = await svgHelper.load();
 
-    setMenu(msg);
+    setMenu(svg);
+    svgHelper.setElement(refDiv.current);
 
-    const transformOrigin = getRulerTransformOrigin(refDiv.current);
-    const clipMaskBg = getRulerClipMaskItem(refDiv.current, 'background');
-    const clipMaskHl = getRulerClipMaskItem(refDiv.current, 'highlight');
-
-    if (clipMaskBg && transformOrigin) {
-      clipMaskBg.style.transformOrigin = transformOrigin;
-    }
-
-    if (clipMaskHl && transformOrigin) {
-      clipMaskHl.style.transformOrigin = transformOrigin;
-    }
-
-    console.log('before creating pomodoro');
-    const p1 = new Pomodoro();
-    const p2 = new Pomodoro();
-
-
-    console.log('value', p1, p2);
-
+    (window as any).svgHelper = svgHelper;
   }
 
-  /**
-   * Update ruler display component based on a percentage.
-   * @param percentage 0 to 1
-   */
-  function setPercentage(percentage: number) {
-    const bg = getRulerClipMaskItem(refDiv.current, 'background');
-    const hl = getRulerClipMaskItem(refDiv.current, 'highlight');
-
-    bg.style.transform = `rotate(${percentage * 120}deg)`;
-    hl.style.transform = `rotate(${percentage * 120 - 120}deg)`;
-  }
+  useEffect(() => { load(); }, []);
 
   useEffect(() => {
-    load();
-  }, []);
+    svgHelper.setPomodoroProgress(props.pomodoroCurrentCycle, props.pomodoroCurrentTime, props.pomodoroCurrentCycleDuration);
+  }, [props.pomodoroCurrentCycle, props.pomodoroCurrentTime, props.pomodoroCurrentCycleDuration, svgHelper]);
 
   return (
     <div className="circular-menu" dangerouslySetInnerHTML={{ __html: menu }} ref={refDiv}>

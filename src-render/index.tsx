@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import CircularMenu from './components/circularMenu';
 import reportWebVitals from './reportWebVitals';
+import ContextScreen from './screens/contextScreen';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CircularMenu />
+    <ContextScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
