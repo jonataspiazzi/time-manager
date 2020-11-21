@@ -1,0 +1,38 @@
+
+.circular-menu {
+  margin: 10px;
+
+  &>svg {
+    g[id^=button] {
+      cursor: pointer;    
+
+      &>[id^=highlight] {
+        opacity: 0;
+      }
+
+      &>[id^=background] {
+        opacity: 1;
+      }
+
+      &>[id^=children] {
+        opacity: 0;
+        transition: opacity .6s;
+        transition-timing-function: ease;
+      }
+
+      &:hover {
+        &>[id^=highlight] {
+          opacity: 1;
+        }
+  
+        &>[id^=background] {
+          opacity: 0;
+        }
+  
+        &>[id^=children] {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

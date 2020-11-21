@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PomodoroCycle } from '../core/pomodoro';
 import { CircularMenuSvgHelper } from '../helpers/circularMenuSvgHelper';
+import './circularMenu.scss';
 
 export interface CircularMenuProps {
   pomodoroCurrentCycle: PomodoroCycle;
