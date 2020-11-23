@@ -1,50 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-const electron = window.require("electron");
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import ContextScreen from './screens/context';
+import MainScreen from './screens/main';
 
-function App() {
-  const [files, setFiles] = useState<string[]>([]);
-  const [background, setBackground] = useState('');
+// Ref to code using subroutes.
+// https://codesandbox.io/s/react-router-route-config-5stco?from-embed=&file=/example.js
 
-  async function onExit() {
-    //electron.remote.app.exit();
-
-    //console.log(electron);
-    //console.log(electron.remote);
-    //api.app.exit();
-    //electronApp.exit();
-
-    const result = await electron.ipcRenderer.invoke('some-specific-action', 3);
-
-    setFiles(result);
-  }
-
-  async function close() {
-    electron.remote.getCurrentWindow().close();
-  }
-
-  useEffect(() => {
-    const gColor = () => Math.round(Math.random()) * 100 + 155;
-
-    const bg = `rgb(${gColor()}, ${gColor()}, ${gColor()})`;
-    setBackground(bg);
-  }, []);
-
-  async function createSecondWindow() {
-    await electron.ipcRenderer.invoke('open-second-window');
-  }
-
+export default function App() {
+  const [state, setState] = useState();
   return (
-    <div className="test-circle" style={{ background }}>
-      <p>Hello World!</p>
-      <button onClick={createSecondWindow}>
-        Open Second.
-      </button>
-      <button onClick={close}>
-        Close
-      </button>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact={true} render={() => <MainScreen />} />
+        <Route path="/context" render={() => <ContextScreen />} />
+      </Switch>
+    </Router>
   );
 }
-
-export default App;
