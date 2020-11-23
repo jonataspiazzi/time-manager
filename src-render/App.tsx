@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import ContextScreen from './screens/context';
 import MainScreen from './screens/main';
 
@@ -7,12 +7,13 @@ import MainScreen from './screens/main';
 // https://codesandbox.io/s/react-router-route-config-5stco?from-embed=&file=/example.js
 
 export default function App() {
-  const [state, setState] = useState();
+  const [] = useState();
   return (
     <Router>
       <Switch>
-        <Route path="/" exact={true} render={() => <MainScreen />} />
+        <Route path="/main" render={() => <MainScreen />} />
         <Route path="/context" render={() => <ContextScreen />} />
+        <Route path="/" render={() => <p>404 - Not Found!</p>} />
       </Switch>
     </Router>
   );

@@ -5,7 +5,7 @@ const { ipcRenderer } = window.require
       on: (...args: []) => console.log('ipcRenderer.on called with ', args),
       once: (...args: []) => console.log('ipcRenderer.once called with ', args),
       removeListener: (...args: []) => console.log('ipcRenderer.removeListener called with ', args),
-      sendSync: (...args: []) => console.log('ipcRenderer.sendSync called with ', args)
+      send: (...args: []) => console.log('ipcRenderer.sendSync called with ', args)
     }
   };
 

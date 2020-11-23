@@ -10,8 +10,9 @@
     "render.build": "react-app-rewired build",
     "render.test": "react-app-rewired test",
     "main.tsc": "tsc --watch --project ./src-main/tsconfig.json",
-    "main.exec": "cross-env NODE_ENV=dev nodemon --exec \"\"electron ./dist-main/index.js\"\"",
-    "main.dev": "concurrently \"npm run main.tsc\" \"npm run main.exec\"",
+    "main.exec": "cross-env ELECTRON_IS_DEV=false nodemon --exec \"\"electron ./dist-main/index.js\"\"",
+    "main.exec.dev": "cross-env NODE_ENV=production nodemon --exec \"\"electron ./dist-main/index.js\"\"",
+    "main.dev": "concurrently \"npm run main.tsc\" \"npm run main.exec.dev\"",
     "dev": "concurrently \"npm run render.dev.bn\" \"npm run main.dev\""
   },
   "build": {

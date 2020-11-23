@@ -24,9 +24,9 @@ export function createWindow() {
     window = null;
   });
 
-  window.loadURL(windowUrl(''));
-  window.maximize();
-  window.webContents.openDevTools();
+  window.loadURL(windowUrl('main'));
+  //window.maximize();
+  //window.webContents.openDevTools();
 }
 
 ipcHelper.addEventListener('increment', () => {
