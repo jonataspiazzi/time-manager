@@ -1,4 +1,5 @@
 import { BrowserWindow } from 'electron';
+import isDev from 'electron-is-dev';
 import { PomodoroBusiness } from '../business/pomodoro';
 import { windowUrl } from '../helpers/windowUrl';
 import { IpcHelper } from '../helpers/ipc';
@@ -10,8 +11,8 @@ let window: BrowserWindow | null = null;
 
 export function createWindow() {
   window = new BrowserWindow({
-    x: 2000,
-    y: 20,
+    x: isDev ? 2000 : undefined,
+    y: isDev ? 20 : undefined,
     width: 800,
     height: 600,
     webPreferences: {
@@ -25,8 +26,14 @@ export function createWindow() {
   });
 
   window.loadURL(windowUrl('main'));
-  //window.maximize();
-  //window.webContents.openDevTools();
+
+  if (!isDev) {
+    window.setMenu(null);
+  }
+  else {
+    window.maximize();
+    window.webContents.openDevTools();
+  }
 }
 
 ipcHelper.addEventListener('increment', () => {

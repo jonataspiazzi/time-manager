@@ -11,6 +11,7 @@
 # production
 /dist-render
 /dist-main
+/out
 
 # misc
 .DS_Store

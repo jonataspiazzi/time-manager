@@ -1,33 +1,31 @@
 {
   "name": "time-manager",
-  "version": "0.1.0",
+  "productName": "time-manager",
+  "version": "1.0.0",
+  "description": "Time Manager.",
+  "main": "./dist-main/index.js",
   "private": true,
-  "main": "src-main/index.ts",
-  "homepage": "./",
+  "license": "MIT",
+  "keywords": [],
+  "author": {
+    "name": "Jonatas Piazzi",
+    "email": "jonataspiazzi@gmail.com"
+  },
   "scripts": {
     "render.dev": "react-app-rewired start",
     "render.dev.bn": "cross-env BROWSER=none react-app-rewired start",
     "render.build": "react-app-rewired build",
     "render.test": "react-app-rewired test",
-    "main.tsc": "tsc --watch --project ./src-main/tsconfig.json",
-    "main.exec": "cross-env ELECTRON_IS_DEV=false nodemon --exec \"\"electron ./dist-main/index.js\"\"",
-    "main.exec.dev": "cross-env NODE_ENV=production nodemon --exec \"\"electron ./dist-main/index.js\"\"",
-    "main.dev": "concurrently \"npm run main.tsc\" \"npm run main.exec.dev\"",
-    "dev": "concurrently \"npm run render.dev.bn\" \"npm run main.dev\""
-  },
-  "build": {
-    "appId": "time.manager",
-    "directories": {
-      "buildResources": "assets"
-    },
-    "win": {
-      "category": "your.app.category.type",
-      "iconUrl": "path-to-icon.png"
-    },
-    "mac": {
-      "category": "your.app.category.type",
-      "iconUrl": "path-to-icon.png"
-    }
+    "main.tsc": "tsc --project ./src-main/tsconfig.json",
+    "main.tsc.watch": "tsc --watch --project ./src-main/tsconfig.json",
+    "main.exec": "cross-env ELECTRON_IS_DEV=false nodemon --exec \"\"electron-forge start\"\"",
+    "main.exec.dev": "cross-env NODE_ENV=dev nodemon --exec \"\"electron-forge start\"\"",
+    "main.dev": "concurrently \"npm run main.tsc.watch\" \"npm run main.exec.dev\"",
+    "main.package": "electron-forge package",
+    "main.make": "electron-forge make",
+    "dev": "concurrently \"npm run render.dev.bn\" \"npm run main.dev\"",
+    "package": "npm run render.build && npm run main.tsc && npm run main.package",
+    "make": "npm run render.build && npm run main.tsc && npm run main.make"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
@@ -38,6 +36,7 @@
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "electron-is-dev": "^1.2.0",
+    "electron-squirrel-startup": "^1.0.0",
     "mobx": "^6.0.4",
     "mobx-react": "^7.0.5",
     "node-sass": "^4.14.1",
@@ -47,6 +46,62 @@
     "react-scripts": "4.0.0",
     "typescript": "^4.0.5",
     "web-vitals": "^0.2.4"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "@types/react-router-dom": "^5.1.6",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "electron": "^11.0.2",
+    "electron-builder": "^22.9.1",
+    "electron-reload": "^1.5.0",
+    "nodemon": "^2.0.6",
+    "react-app-rewired": "^2.1.6"
+  },
+  "build": {
+    "appId": "time.manager",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "win": {
+      "category": "public.app-category.productivity",
+      "iconUrl": "public/favicon.ico"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "iconUrl": "public/favicon.ico"
+    }
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "time_manager"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -65,15 +120,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.1.6",
-    "concurrently": "^5.3.0",
-    "cross-env": "^7.0.2",
-    "electron": "^10.1.5",
-    "electron-builder": "^22.9.1",
-    "electron-reload": "^1.5.0",
-    "nodemon": "^2.0.6",
-    "react-app-rewired": "^2.1.6"
   }
 }
