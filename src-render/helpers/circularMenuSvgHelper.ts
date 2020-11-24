@@ -1,5 +1,5 @@
 import svg from '../assets/circular-menu.svg';
-import { PomodoroCycle } from '../core/pomodoro';
+import { PomodoroCycle } from '../../src-main/ipcMaps/pomodoro';
 import { CircularMenuPomodoroAngles } from './circularMenuPomodoroAngles';
 
 const angles = new CircularMenuPomodoroAngles();

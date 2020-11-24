@@ -1,4 +1,5 @@
 import { BrowserWindow, ipcMain } from 'electron';
+import { IpcMainEvent } from 'electron/main';
 
 /**
  * Contains the basic funtionalities of a notifier object.
@@ -23,8 +24,8 @@ export class IpcHelper<T extends { [J in Extract<keyof T, string>]: (...args: an
    * @param eventName The name of the event.
    * @param listener The callback function
    */
-  addEventListener<K extends Extract<keyof T, string>>(eventName: K, listener: T[K]): void {
-    ipcMain.on(this.getFullname(eventName), listener);
+  addEventListener<K extends Extract<keyof T, string>>(eventName: K, listener: (event: IpcMainEvent, ...args: Parameters<T[K]>) => ReturnType<T[K]>): void {
+    ipcMain.on(this.getFullname(eventName), listener as any);
   }
 
   /**
@@ -34,8 +35,8 @@ export class IpcHelper<T extends { [J in Extract<keyof T, string>]: (...args: an
    * @param eventName The name of the event.
    * @param listener The callback function
    */
-  addEventListenerOnce<K extends Extract<keyof T, string>>(eventName: K, listener: T[K]): void {
-    ipcMain.once(this.getFullname(eventName), listener);
+  addEventListenerOnce<K extends Extract<keyof T, string>>(eventName: K, listener: (event: IpcMainEvent, ...args: Parameters<T[K]>) => ReturnType<T[K]>): void {
+    ipcMain.once(this.getFullname(eventName), listener as any);
   }
 
   /**

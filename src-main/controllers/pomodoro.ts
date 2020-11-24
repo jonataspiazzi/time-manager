@@ -1,12 +1,13 @@
 import { BrowserWindow } from 'electron';
 import isDev from 'electron-is-dev';
-import { PomodoroBusiness } from '../business/pomodoro';
+import { Pomodoro } from '../core/pomodoro';
 import { windowUrl } from '../helpers/windowUrl';
 import { IpcHelper } from '../helpers/ipc';
-import { PomodoroMap } from '../ipcMap/pomodoro';
+import { PomodoroActionMap } from '../ipcMaps/pomodoro';
+import { clockHelper } from '../helpers/clock';
 
-const pomodoro = new PomodoroBusiness();
-const ipcHelper = new IpcHelper<PomodoroMap>('pomodoro');
+const pomodoro = new Pomodoro();
+const ipcHelper = new IpcHelper<PomodoroActionMap>('pomodoro');
 let window: BrowserWindow | null = null;
 
 export function createWindow() {
@@ -36,11 +37,25 @@ export function createWindow() {
   }
 }
 
-ipcHelper.addEventListener('increment', () => {
-  pomodoro.currentCycle++;
-
+ipcHelper.addEventListener('getInfo', event => {
+  event.returnValue = pomodoro.getInfo();
 });
 
-pomodoro.addEventListener('currentCycleChanged', cycle => {
-  ipcHelper.dispatchEvent(window, 'onCurrentCycleChanged', cycle);
+ipcHelper.addEventListener('toggleEnabled', () => {
+  pomodoro.enabled = !pomodoro.enabled;
+});
+
+ipcHelper.addEventListener('startCycle', (_, cycle) => {
+  pomodoro.currentCycle = cycle;
+  pomodoro.start();
+});
+
+ipcHelper.addEventListener('pause', () => {
+  pomodoro.pause();
+});
+
+clockHelper.addEventListener('tick', () => {
+  if (!pomodoro.enabled) return;
+
+  ipcHelper.dispatchEvent(window, 'onUpdate', pomodoro.getInfo());
 });

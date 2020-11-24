@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PomodoroCycle } from '../core/pomodoro';
+import { PomodoroCycle } from '../../src-main/ipcMaps/pomodoro';
 import { CircularMenuSvgHelper } from '../helpers/circularMenuSvgHelper';
 import './circularMenu.scss';
 

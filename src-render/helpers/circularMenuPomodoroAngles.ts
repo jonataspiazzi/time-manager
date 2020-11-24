@@ -1,4 +1,4 @@
-import { PomodoroCycle } from '../core/pomodoro';
+import { PomodoroCycle } from '../../src-main/ipcMaps/pomodoro';
 
 export interface Interval {
   begin: number;
