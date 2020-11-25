@@ -1,11 +1,11 @@
 import svg from '../assets/circular-menu.svg';
-import { PomodoroCycle } from '../../src-main/ipcMaps/pomodoro';
+import { PomodoroCycle } from '../../src-main/ipcTypes/pomodoro';
 import { CircularMenuPomodoroAngles } from './circularMenuPomodoroAngles';
 
 const angles = new CircularMenuPomodoroAngles();
 
 export type CircularMenuButton = 'pomodoro-bar' | 'pomodoro-pause' | 'pomodoro-p1' | 'pomodoro-p2' | 'pomodoro-p3' | 'pomodoro-p4' | 'pomodoro-b4';
-export type CircularMenuSvgElementName = 'root' | 'center' | CircularMenuButton;
+export type CircularMenuSvgElementName = 'root' | 'center' | 'close-outfill' | 'close-center' | CircularMenuButton;
 export const elementButtons: CircularMenuButton[] = ['pomodoro-b4', 'pomodoro-bar', 'pomodoro-p1', 'pomodoro-p2', 'pomodoro-p3', 'pomodoro-p4', 'pomodoro-pause'];
 
 export class CircularMenuSvgHelper {
@@ -39,8 +39,10 @@ export class CircularMenuSvgHelper {
     switch (name) {
       case 'root': return 'svg';
       case 'center': return 'svg #helpers #center';
-      case 'pomodoro-bar': return 'svg #ruler #progress #bar';
-      case 'pomodoro-pause': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=pause]';
+      case 'close-center': return 'svg>[id^=close]>[id^=center]';
+      case 'close-outfill': return 'svg>[id^=close]>[id^=outfill]';
+      case 'pomodoro-bar': return 'svg>#pomodoro #ruler #progress #bar';
+      case 'pomodoro-pause': return 'svg>#pomodoro>[id^=button]>[id^=children]>[id^=pause]';
       case 'pomodoro-p1': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p1]>[id^=button]>[id^=children]>[id^=button]';
       case 'pomodoro-p2': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p2]>[id^=button]>[id^=children]>[id^=button]';
       case 'pomodoro-p3': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p3]>[id^=button]>[id^=children]>[id^=button]';

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PomodoroInfo } from '../../src-main/ipcMaps/pomodoro';
+import { PomodoroInfo } from '../../src-main/ipcTypes/pomodoro';
 import { CircularMenuSvgHelper, elementButtons, CircularMenuButton } from '../helpers/circularMenuSvgHelper';
 import './circularMenu.scss';
 
 export interface CircularMenuProps {
   pomodoro: PomodoroInfo;
   onClick: (button: CircularMenuButton) => void;
+  onClose: () => void;
 }
 
 export default function CircularMenu(props: CircularMenuProps) {
@@ -32,6 +33,9 @@ export default function CircularMenu(props: CircularMenuProps) {
         props.onClick(button);
       });
     }
+
+    svgHelper.getElement('close-center').addEventListener('click', props.onClose);
+    svgHelper.getElement('close-outfill').addEventListener('click', props.onClose);
   }, [props.onClick, loaded]);
 
   useEffect(() => {

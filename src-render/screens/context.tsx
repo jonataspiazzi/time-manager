@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { PomodoroInfo, PomodoroActionMap } from '../../src-main/ipcMaps/pomodoro';
+import { PomodoroInfo, PomodoroActionMap } from '../../src-main/ipcTypes/pomodoro';
 import CircularMenu from '../components/circularMenu';
 import { CircularMenuSvgElementName } from '../helpers/circularMenuSvgHelper';
 import { IpcHelper } from '../helpers/ipc';
+import { GlobalActionMap } from '../../src-main/ipcTypes/global';
 
 const pomodoro = new IpcHelper<PomodoroActionMap>('pomodoro');
+const globalIpc = new IpcHelper<GlobalActionMap>('global');
 
 export default function ContextScreen() {
-  const history = useHistory();
   const [pomodoroInfo, setPomodoroInfo] = useState<PomodoroInfo>({} as any);
 
   useEffect(() => {
@@ -46,11 +46,13 @@ export default function ContextScreen() {
     }
   }
 
+  function onClose() {
+    globalIpc.dispatchEvent('closeContext');
+  }
+
   return (
     <div>
-      <CircularMenu pomodoro={pomodoroInfo} onClick={elementOnClick} />
-
-      <button className="btn btn-primary" onClick={() => history.push('main')}>Go Back to Main</button>
+      <CircularMenu pomodoro={pomodoroInfo} onClick={elementOnClick} onClose={onClose} />
     </div>
   )
 }

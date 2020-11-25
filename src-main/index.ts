@@ -1,10 +1,18 @@
 import { app } from 'electron';
-import { createWindow } from './controllers/pomodoro';
+import { setupPomodoroIpc } from './ipc/pomodoro';
+import { showMainWindow } from './components/main';
+import { showTray } from './components/tray';
+import { configureShortcuts } from './components/shortcuts';
+import { setupGlobalIpc } from './ipc/global';
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  setupPomodoroIpc();
+  setupGlobalIpc();
+
+  showMainWindow();
+  showTray();
+  configureShortcuts();
+});
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
 });

@@ -1,9 +1,10 @@
 import { clockHelper } from '../helpers/clock';
 import { Notifier } from '../helpers/notifier';
-import { PomodoroInfo, PomodoroCycle } from '../ipcMaps/pomodoro';
+import { PomodoroInfo, PomodoroCycle } from '../ipcTypes/pomodoro';
 
 export interface PomodoroMap {
   cycleEnd: (cycle: PomodoroCycle) => void;
+  tick: (actor: Pomodoro) => void;
 }
 
 export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
@@ -93,6 +94,8 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
     this.shortBreakDuration = .01;
     this.longBreakDuration = .5;
     this.currentCycle = 0;
+
+    clockHelper.addEventListener('tick', this.tick.bind(this));
   }
 
   /**
@@ -140,6 +143,10 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
   }
 
   tick() {
+    if (!this.enabled) return;
+
+    this.dispatchEvent('tick', this);
+
     if (this.currentTime > this.currentCycleDuration) {
       this.pause();
       this.dispatchEvent('cycleEnd', this.currentCycle);
@@ -162,3 +169,5 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
     } as PomodoroInfo;
   }
 }
+
+export const pomodoro = new Pomodoro();
