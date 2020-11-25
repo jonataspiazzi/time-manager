@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PomodoroCycle } from '../../src-main/ipcMaps/pomodoro';
-import { CircularMenuSvgHelper } from '../helpers/circularMenuSvgHelper';
+import { PomodoroInfo } from '../../src-main/ipcMaps/pomodoro';
+import { CircularMenuSvgHelper, elementButtons, CircularMenuButton } from '../helpers/circularMenuSvgHelper';
 import './circularMenu.scss';
 
 export interface CircularMenuProps {
-  pomodoroCurrentCycle: PomodoroCycle;
-  pomodoroCurrentTime: number;
-  pomodoroCurrentCycleDuration: number;
+  pomodoro: PomodoroInfo;
+  onClick: (button: CircularMenuButton) => void;
 }
 
 export default function CircularMenu(props: CircularMenuProps) {
   const [menu, setMenu] = useState(`<p>Loading</p>`);
   const [svgHelper] = useState<CircularMenuSvgHelper>(new CircularMenuSvgHelper());
+  const [loaded, setLoaded] = useState(false);
   const refDiv = useRef<HTMLDivElement>(null);
 
   async function load() {
@@ -19,15 +19,24 @@ export default function CircularMenu(props: CircularMenuProps) {
 
     setMenu(svg);
     svgHelper.setElement(refDiv.current);
-
-    (window as any).svgHelper = svgHelper;
+    setLoaded(true);
   }
 
   useEffect(() => { load(); }, []);
 
   useEffect(() => {
-    svgHelper.setPomodoroProgress(props.pomodoroCurrentCycle, props.pomodoroCurrentTime, props.pomodoroCurrentCycleDuration);
-  }, [props.pomodoroCurrentCycle, props.pomodoroCurrentTime, props.pomodoroCurrentCycleDuration, svgHelper]);
+    if (!loaded || !props.onClick) return;
+
+    for (const button of elementButtons) {
+      svgHelper.getElement(button).addEventListener('click', () => {
+        props.onClick(button);
+      });
+    }
+  }, [props.onClick, loaded]);
+
+  useEffect(() => {
+    svgHelper.setPomodoroProgress(props.pomodoro.currentCycle, props.pomodoro.currentTime, props.pomodoro.currentCycleDuration);
+  }, [props.pomodoro.currentCycle, props.pomodoro.currentTime, props.pomodoro.currentCycleDuration, svgHelper, loaded]);
 
   return (
     <div className="circular-menu" dangerouslySetInnerHTML={{ __html: menu }} ref={refDiv}>

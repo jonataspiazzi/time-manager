@@ -3,6 +3,10 @@
   margin: 10px;
 
   &>svg {
+    #ruler #progress #bar {
+      transition: transform .5s;
+    }
+    
     g[id^=button] {
       cursor: pointer;    
 

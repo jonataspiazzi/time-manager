@@ -55,7 +55,8 @@ ipcHelper.addEventListener('pause', () => {
 });
 
 clockHelper.addEventListener('tick', () => {
-  if (!pomodoro.enabled) return;
-
-  ipcHelper.dispatchEvent(window, 'onUpdate', pomodoro.getInfo());
+  if (pomodoro.enabled) {
+    pomodoro.tick();
+    ipcHelper.dispatchEvent(window, 'onUpdate', pomodoro.getInfo());
+  }
 });

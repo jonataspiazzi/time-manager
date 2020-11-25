@@ -122,18 +122,28 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
     this._startedAt = new Date();
 
     // If the clock was previously paused in the same cycle, resume the clock from where was paused.
-    if (this._beforePause > 0 && this.currentCycle === this._pauseCycle) {
+    if (this._beforePause > 0 && this._beforePause < this.currentCycleDuration && this.currentCycle === this._pauseCycle) {
       this._startedAt.setMilliseconds(this._startedAt.getMilliseconds() - this._beforePause);
     }
 
     this._beforePause = 0;
     this._pauseCycle = -1;
+
+    if (!clockHelper.enabled) clockHelper.start();
   }
 
   pause() {
     this.enabled = false;
     this._beforePause = clockHelper.getElapsed(this._startedAt);
+    if (this._beforePause > this.currentCycleDuration) this._beforePause = this.currentCycleDuration;
     this._pauseCycle = this.currentCycle;
+  }
+
+  tick() {
+    if (this.currentTime > this.currentCycleDuration) {
+      this.pause();
+      this.dispatchEvent('cycleEnd', this.currentCycle);
+    }
   }
 
   getInfo() {

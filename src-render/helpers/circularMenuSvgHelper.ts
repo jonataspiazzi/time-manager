@@ -4,7 +4,9 @@ import { CircularMenuPomodoroAngles } from './circularMenuPomodoroAngles';
 
 const angles = new CircularMenuPomodoroAngles();
 
-export type CircularMenuSvgElementName = 'root' | 'center' | 'pomodoro-bar';
+export type CircularMenuButton = 'pomodoro-bar' | 'pomodoro-pause' | 'pomodoro-p1' | 'pomodoro-p2' | 'pomodoro-p3' | 'pomodoro-p4' | 'pomodoro-b4';
+export type CircularMenuSvgElementName = 'root' | 'center' | CircularMenuButton;
+export const elementButtons: CircularMenuButton[] = ['pomodoro-b4', 'pomodoro-bar', 'pomodoro-p1', 'pomodoro-p2', 'pomodoro-p3', 'pomodoro-p4', 'pomodoro-pause'];
 
 export class CircularMenuSvgHelper {
   private element: HTMLDivElement;
@@ -38,6 +40,12 @@ export class CircularMenuSvgHelper {
       case 'root': return 'svg';
       case 'center': return 'svg #helpers #center';
       case 'pomodoro-bar': return 'svg #ruler #progress #bar';
+      case 'pomodoro-pause': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=pause]';
+      case 'pomodoro-p1': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p1]>[id^=button]>[id^=children]>[id^=button]';
+      case 'pomodoro-p2': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p2]>[id^=button]>[id^=children]>[id^=button]';
+      case 'pomodoro-p3': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p3]>[id^=button]>[id^=children]>[id^=button]';
+      case 'pomodoro-p4': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=p4]>[id^=button]>[id^=children]>[id^=button]';
+      case 'pomodoro-b4': return 'svg #pomodoro>[id^=button]>[id^=children]>[id^=b4]>[id^=button]>[id^=children]>[id^=button]';
       default: return '#none';
     }
   }
