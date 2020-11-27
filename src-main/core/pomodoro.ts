@@ -140,6 +140,7 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
     this._beforePause = clockHelper.getElapsed(this._startedAt);
     if (this._beforePause > this.currentCycleDuration) this._beforePause = this.currentCycleDuration;
     this._pauseCycle = this.currentCycle;
+
   }
 
   tick() {

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PomodoroInfo } from '../../src-main/ipcTypes/pomodoro';
-import { CircularMenuSvgHelper, elementButtons, CircularMenuButton } from '../helpers/circularMenuSvgHelper';
-import './circularMenu.scss';
+import { PomodoroInfo } from '../../../src-main/ipcTypes/pomodoro';
+import { CircularMenuSvgHelper, elementButtons, CircularMenuButton } from '../../helpers/circularMenuSvgHelper';
+import './index.scss';
 
 export interface CircularMenuProps {
   pomodoro: PomodoroInfo;
