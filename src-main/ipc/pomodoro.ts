@@ -25,7 +25,7 @@ export function setupPomodoroIpc() {
   });
 
   pomodoro.addEventListener('tick', p => {
-    ipcHelper.dispatchEvent(getMainWindow(), 'onUpdate', p.getInfo());
-    ipcHelper.dispatchEvent(getContextWindow(), 'onUpdate', p.getInfo());
+    ipcHelper.dispatchEvent(getMainWindow(), 'onUpdate', p.getConfig());
+    ipcHelper.dispatchEvent(getContextWindow(), 'onUpdate', p.getConfig());
   });
 }

@@ -16,8 +16,6 @@ export interface InputTextProps {
 }
 
 export default function InputText(props: InputTextProps) {
-  console.log('component did updated');
-
   const [colClass, setColClass] = useState('');
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {

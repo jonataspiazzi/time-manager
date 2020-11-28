@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FieldGroup from './fieldGroup';
 import InputCheck from './inputCheck';
 import InputText from './inputText';
 import { BindObject, fieldGrouped } from './fields';
+import PomodoroForm from './pomodoroForm';
+import { IpcHelper } from '../../helpers/ipc';
+import { PomodoroActionMap } from '../../../src-main/ipcTypes/pomodoro';
+
+const ipcHelper = new IpcHelper<PomodoroActionMap>('pomodoro');
 
 export default function CmsConfiguration() {
   const [isChanged, setIsChanged] = useState(false);
@@ -11,6 +16,8 @@ export default function CmsConfiguration() {
     shortcut: 'Ctrl+Shift+1',
     size: 512
   } as { [key: string]: any });
+
+  const [pomodoroInfo, setPomodoroInfo] = useState(ipcHelper.dispatchSyncEvent('getInfo'));
 
   function getValue(bind: BindObject, bindProp: string): any {
     switch (bind) {
@@ -48,6 +55,7 @@ export default function CmsConfiguration() {
           )}
         </FieldGroup>
       )}
+      <PomodoroForm info={pomodoroInfo} onChange={setPomodoroInfo} />
       <div>app</div>
       <div>app</div>
       <div>app</div>
