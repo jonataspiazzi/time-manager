@@ -1,7 +1,7 @@
 import React from 'react';
-import CmsConfiguration from '../components/cms/configuration';
-import Header from '../components/global/header';
-import SideBar from '../components/sideBar';
+import CmsIndex from '../components/cms/main';
+import Header from '../components/cms/main/utils/header';
+import SideBar from '../components/cms/main/utils/sideBar';
 
 export default function MainScreen() {
   return (
@@ -10,7 +10,7 @@ export default function MainScreen() {
       <div className="container-fluid">
         <div className="row">
           <SideBar />
-          <CmsConfiguration />
+          <CmsIndex />
         </div>
       </div>
     </div>

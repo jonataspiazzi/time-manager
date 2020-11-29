@@ -1,24 +1,24 @@
 import React from 'react';
-import { PomodoroInfo } from '../../../src-main/ipcTypes/pomodoro';
-import FieldGroup from './fieldGroup';
-import InputCheck from './inputCheck';
-import InputFile from './inputFile';
-import InputText from './inputText';
+import FieldGroup from '../../global/fieldGroup';
+import { DrinkWaterInfo } from '../../../../../src-main/ipcTypes/drinkWater';
+import InputCheck from '../../inputs/check';
+import InputNumber from '../../inputs/number';
+import InputFile from '../../inputs/file';
 
-export interface PomodoroFormProps {
-  info: PomodoroInfo;
-  onChange: (info: PomodoroInfo) => void;
+export interface DrinkWaterGroupProps {
+  info: DrinkWaterInfo;
+  onChange: (info: DrinkWaterInfo) => void;
 }
 
-export default function PomodoroForm(props: PomodoroFormProps) {
-  function onChange<K extends keyof PomodoroInfo>(field: K, value: PomodoroInfo[K]) {
+export default function DrinkWaterGroup(props: DrinkWaterGroupProps) {
+  function onChange<K extends keyof DrinkWaterInfo>(field: K, value: DrinkWaterInfo[K]) {
     if (!props.onChange) return;
 
     props.onChange({ ...props.info, [field]: value });
   }
 
   return (
-    <FieldGroup title="Pomodoro">
+    <FieldGroup title="Drink Water">
       <InputCheck
         checked={props.info.enabled}
         onChange={v => onChange('enabled', v)}
@@ -44,6 +44,18 @@ export default function PomodoroForm(props: PomodoroFormProps) {
         onChange={v => onChange('screenLockFilename', v)}
         label="Screen lock file"
         explanation="An image to be display on screen lock." />
+      <InputCheck
+        checked={props.info.waitScreenLockClosed}
+        onChange={v => onChange('waitScreenLockClosed', v)}
+        disabled={!props.info.screenLockEnabled}
+        label="Wait screen lock closed"
+        explanation="This option is valid only if screen lock is enabled. Determines if at a cycle end will the next cycle begin automatically or it'll wait on screen lock close event." />
+      <InputNumber
+        value={props.info.lapDuration}
+        onChange={v => onChange('lapDuration', v)}
+        label="Lap duration"
+        explanation="The time in minutes of each lap."
+        col={12} sm={4} lg={3} append="min" />
     </FieldGroup>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrainIcon, DropIcon, HomeIcon, ListIcon } from '../global/icons';
+import { BrainIcon, DropIcon, HomeIcon, ListIcon } from './icons';
 import SideBarItem from './sideBarItem';
 
 export default function SideBar() {

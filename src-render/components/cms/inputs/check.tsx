@@ -5,6 +5,7 @@ export interface InputCheckProps {
   explanation?: string;
   checked?: boolean;
   onChange?: (value: boolean) => void;
+  disabled?: boolean;
 }
 
 export default function InputCheck(props: InputCheckProps) {
@@ -16,7 +17,7 @@ export default function InputCheck(props: InputCheckProps) {
 
   return (
     <div className="form-check">
-      <input className="form-check-input" type="checkbox" checked={!!props.checked} onChange={onChange} />
+      <input className="form-check-input" type="checkbox" checked={!!props.checked} onChange={onChange} disabled={!!props.disabled} />
       {props.label && <label className="form-check-label bold">
         {props.label}
       </label>}

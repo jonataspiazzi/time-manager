@@ -15,7 +15,7 @@ export default function InputFile(props: InputFileProps) {
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (!props.onChange) return;
 
-    if (e.target.files.length) {
+    if (!e.target.files.length) {
       props.onChange(null);
       return;
     }
