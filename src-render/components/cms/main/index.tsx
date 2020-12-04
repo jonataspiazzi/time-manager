@@ -5,6 +5,7 @@ import { PomodoroActionMap } from '../../../../src-main/ipcTypes/pomodoro';
 import SaveChanges from './utils/saveChanges';
 import ContextMenuGroup from './groups/contextMenu';
 import DrinkWaterGroup from './groups/drinkWater';
+import ActivitiesGroup from './groups/activities';
 
 const ipcHelper = new IpcHelper<PomodoroActionMap>('pomodoro');
 type GroupNames = 'contextMenu' | 'pomodoro' | 'drinkWater';
@@ -41,6 +42,7 @@ export default function CmsIndex() {
       <ContextMenuGroup info={contextMenuInfo} onChange={info => updateInfo('contextMenu', info)} />
       <PomodoroGroup info={pomodoroInfo} onChange={info => updateInfo('pomodoro', info)} />
       <DrinkWaterGroup info={drinkWaterInfo} onChange={info => updateInfo('drinkWater', info)} />
+      <ActivitiesGroup />
     </main>
   );
 }

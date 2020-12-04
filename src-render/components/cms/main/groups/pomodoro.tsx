@@ -1,6 +1,6 @@
 import React from 'react';
 import { PomodoroCycle, PomodoroInfo } from '../../../../../src-main/ipcTypes/pomodoro';
-import FieldGroup from '../../global/fieldGroup';
+import FieldSection from '../../global/fieldSection';
 import InputCheck from '../../inputs/check';
 import InputFile from '../../inputs/file';
 import InputNumber from '../../inputs/number';
@@ -19,7 +19,7 @@ export default function PomodoroGroup(props: PomodoroGroupProps) {
   }
 
   return (
-    <FieldGroup title="Pomodoro">
+    <FieldSection title="Pomodoro" sectionName="pomodoro">
       <InputCheck
         checked={props.info.enabled}
         onChange={v => onChange('enabled', v)}
@@ -84,6 +84,6 @@ export default function PomodoroGroup(props: PomodoroGroupProps) {
         onChange={v => onChange('currentCycle', v as PomodoroCycle)}
         label="Current Cycle"
         explanation="The current cycle of pomodoro." />
-    </FieldGroup>
+    </FieldSection>
   );
 }

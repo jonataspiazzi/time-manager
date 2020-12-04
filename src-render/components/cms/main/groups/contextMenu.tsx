@@ -1,5 +1,5 @@
 import React from 'react';
-import FieldGroup from '../../global/fieldGroup';
+import FieldSection from '../../global/fieldSection';
 import { ContextMenuInfo } from '../../../../../src-main/ipcTypes/contextMenu';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';
@@ -18,7 +18,7 @@ export default function ContextMenuGroup(props: ContextMenuGroupProps) {
   }
 
   return (
-    <FieldGroup title="Context Menu">
+    <FieldSection title="Context Menu" sectionName="context-menu">
       <InputCheck
         checked={props.info.enabled}
         onChange={v => onChange('enabled', v)}
@@ -36,7 +36,6 @@ export default function ContextMenuGroup(props: ContextMenuGroupProps) {
         label="Menu size"
         explanation="The size of the context menu (radial menu). This value is used to width and height."
         col={12} sm={4} lg={3} append="px" />
-
-    </FieldGroup>
+    </FieldSection>
   );
 }

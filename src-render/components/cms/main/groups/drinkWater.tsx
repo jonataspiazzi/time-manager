@@ -1,5 +1,5 @@
 import React from 'react';
-import FieldGroup from '../../global/fieldGroup';
+import FieldSection from '../../global/fieldSection';
 import { DrinkWaterInfo } from '../../../../../src-main/ipcTypes/drinkWater';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';
@@ -18,7 +18,7 @@ export default function DrinkWaterGroup(props: DrinkWaterGroupProps) {
   }
 
   return (
-    <FieldGroup title="Drink Water">
+    <FieldSection title="Drink Water" sectionName="drink-water">
       <InputCheck
         checked={props.info.enabled}
         onChange={v => onChange('enabled', v)}
@@ -56,6 +56,6 @@ export default function DrinkWaterGroup(props: DrinkWaterGroupProps) {
         label="Lap duration"
         explanation="The time in minutes of each lap."
         col={12} sm={4} lg={3} append="min" />
-    </FieldGroup>
+    </FieldSection>
   );
 }
