@@ -4,6 +4,7 @@ import { DrinkWaterInfo } from '../../../../../src-main/ipcTypes/drinkWater';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';
 import InputFile from '../../inputs/file';
+import InputScreenLock from '../../inputs/screenLock';
 
 export interface DrinkWaterGroupProps {
   info: DrinkWaterInfo;
@@ -39,7 +40,7 @@ export default function DrinkWaterGroup(props: DrinkWaterGroupProps) {
         onChange={v => onChange('screenLockEnabled', v)}
         label="Screen lock enabled"
         explanation="Defines if an should lock all screens (with an image) at the end of a cycle." />
-      <InputFile
+      <InputScreenLock
         value={props.info.screenLockFilename}
         onChange={v => onChange('screenLockFilename', v)}
         label="Screen lock file"

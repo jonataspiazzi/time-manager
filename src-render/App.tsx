@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import ContextScreen from './screens/context';
+import LockScreen from './screens/lock';
 import MainScreen from './screens/main';
 
 // Ref to code using subroutes.
@@ -13,6 +14,7 @@ export default function App() {
       <Switch>
         <Route path="/main" render={() => <MainScreen />} />
         <Route path="/context" render={() => <ContextScreen />} />
+        <Route path="/lock" render={() => <LockScreen />} />
         <Route path="/" render={() => <p>404 - Not Found!</p>} />
       </Switch>
     </Router>

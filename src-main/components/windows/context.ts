@@ -1,5 +1,5 @@
 import { BrowserWindow, screen } from 'electron';
-import { windowUrl } from '../helpers/windowUrl';
+import { windowUrl } from '../../helpers/windowUrl';
 
 let window: BrowserWindow | null = null;
 

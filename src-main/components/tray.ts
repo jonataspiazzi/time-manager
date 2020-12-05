@@ -5,10 +5,10 @@ let tray: Tray | null = null;
 
 function onShowConfiguration() {
   showMainWindow();
-
 }
 
 function onClose() {
+  closeTray();
   app.exit();
 }
 
@@ -24,4 +24,13 @@ export function showTray() {
   tray.setTitle('Time Manager');
   tray.setToolTip('Time Manager');
   tray.setContextMenu(contextMenu);
+}
+
+export function closeTray() {
+  tray?.destroy();
+  tray = null;
+}
+
+export function getTray() {
+  return tray;
 }

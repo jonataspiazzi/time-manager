@@ -32,7 +32,7 @@ export interface PomodoroInfo extends CycleFeatureInfo {
 
 export interface PomodoroActionMap {
   // getters
-  getInfo(): DrinkWaterInfo;
+  getInfo(): PomodoroInfo;
 
   // methods
   toggleEnabled(): void;
@@ -40,5 +40,5 @@ export interface PomodoroActionMap {
   pause();
 
   // events
-  onUpdate(info: DrinkWaterInfo): void;
+  onUpdate(info: PomodoroInfo): void;
 }

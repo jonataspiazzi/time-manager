@@ -1,6 +1,6 @@
 import { BrowserWindow } from 'electron';
 import isDev from 'electron-is-dev';
-import { windowUrl } from '../helpers/windowUrl';
+import { windowUrl } from '../../helpers/windowUrl';
 
 let window: BrowserWindow | null = null;
 

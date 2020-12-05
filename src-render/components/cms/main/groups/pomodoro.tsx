@@ -5,6 +5,7 @@ import InputCheck from '../../inputs/check';
 import InputFile from '../../inputs/file';
 import InputNumber from '../../inputs/number';
 import InputOption from '../../inputs/option';
+import InputScreenLock from '../../inputs/screenLock';
 
 export interface PomodoroGroupProps {
   info: PomodoroInfo;
@@ -40,7 +41,7 @@ export default function PomodoroGroup(props: PomodoroGroupProps) {
         onChange={v => onChange('screenLockEnabled', v)}
         label="Screen lock enabled"
         explanation="Defines if an should lock all screens (with an image) at the end of a cycle." />
-      <InputFile
+      <InputScreenLock
         value={props.info.screenLockFilename}
         onChange={v => onChange('screenLockFilename', v)}
         label="Screen lock file"

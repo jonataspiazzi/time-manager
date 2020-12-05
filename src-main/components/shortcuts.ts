@@ -1,5 +1,5 @@
 import { globalShortcut } from 'electron';
-import { showContextWindow } from './context';
+import { showContextWindow } from './windows/context';
 
 export function configureShortcuts() {
   globalShortcut.unregisterAll();

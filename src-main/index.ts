@@ -1,6 +1,6 @@
 import { app } from 'electron';
 import { setupPomodoroIpc } from './ipc/pomodoro';
-import { showMainWindow } from './components/main';
+import { showMainWindow } from './components/windows/main';
 import { showTray } from './components/tray';
 import { configureShortcuts } from './components/shortcuts';
 import { setupGlobalIpc } from './ipc/global';

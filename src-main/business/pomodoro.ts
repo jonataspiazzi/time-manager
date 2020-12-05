@@ -1,4 +1,3 @@
-import { configureShortcuts } from '../components/shortcuts';
 import { clockHelper } from '../helpers/clock';
 import { Notifier } from '../helpers/notifier';
 import { PomodoroInfo, PomodoroCycle } from '../ipcTypes/pomodoro';
@@ -95,7 +94,7 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
     this.audioEnabled = true;
     this.audioFilename = 'D:\\hello.wav';
     this.screenLockEnabled = false;
-    this.screenLockFilename = '';
+    this.screenLockFilename = 'D:\\Pictures\\Wallpaper\\wp04.jpg';
     this.waitScreenLockClosed = true;
     this.pomodoroDuration = .25;
     this.shortBreakDuration = .01;
