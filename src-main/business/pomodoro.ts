@@ -92,7 +92,7 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
     super();
     this.enabled = false;
     this.audioEnabled = true;
-    this.audioFilename = 'D:\\hello.wav';
+    this.audioFilename = 'D:\\Downloads\\drinkWater.mp3';
     this.screenLockEnabled = false;
     this.screenLockFilename = 'D:\\Pictures\\Wallpaper\\wp04.jpg';
     this.waitScreenLockClosed = true;

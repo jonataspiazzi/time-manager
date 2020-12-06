@@ -3,8 +3,8 @@ import FieldSection from '../../global/fieldSection';
 import { DrinkWaterInfo } from '../../../../../src-main/ipcTypes/drinkWater';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';
-import InputFile from '../../inputs/file';
 import InputScreenLock from '../../inputs/screenLock';
+import InputAudio from '../../inputs/audio';
 
 export interface DrinkWaterGroupProps {
   info: DrinkWaterInfo;
@@ -30,7 +30,7 @@ export default function DrinkWaterGroup(props: DrinkWaterGroupProps) {
         onChange={v => onChange('audioEnabled', v)}
         label="Audio enabled"
         explanation="Defines if an audio should play at the end of a cycle" />
-      <InputFile
+      <InputAudio
         value={props.info.audioFilename}
         onChange={v => onChange('audioFilename', v)}
         label="Audio file"

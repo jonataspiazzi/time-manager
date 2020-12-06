@@ -1,8 +1,8 @@
 import React from 'react';
 import { PomodoroCycle, PomodoroInfo } from '../../../../../src-main/ipcTypes/pomodoro';
 import FieldSection from '../../global/fieldSection';
+import InputAudio from '../../inputs/audio';
 import InputCheck from '../../inputs/check';
-import InputFile from '../../inputs/file';
 import InputNumber from '../../inputs/number';
 import InputOption from '../../inputs/option';
 import InputScreenLock from '../../inputs/screenLock';
@@ -31,7 +31,7 @@ export default function PomodoroGroup(props: PomodoroGroupProps) {
         onChange={v => onChange('audioEnabled', v)}
         label="Audio enabled"
         explanation="Defines if an audio should play at the end of a cycle" />
-      <InputFile
+      <InputAudio
         value={props.info.audioFilename}
         onChange={v => onChange('audioFilename', v)}
         label="Audio file"

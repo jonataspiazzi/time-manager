@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import AudioPlayerScreen from './screens/audioPlayer';
 import ContextScreen from './screens/context';
 import LockScreen from './screens/lock';
 import MainScreen from './screens/main';
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/main" render={() => <MainScreen />} />
         <Route path="/context" render={() => <ContextScreen />} />
         <Route path="/lock" render={() => <LockScreen />} />
+        <Route path="/audioPlayer" render={() => <AudioPlayerScreen />} />
         <Route path="/" render={() => <p>404 - Not Found!</p>} />
       </Switch>
     </Router>
