@@ -6,6 +6,7 @@ export interface InputFileProps {
   value?: string;
   buttons?: React.ReactNode;
   accept?: string;
+  disabled?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -48,7 +49,7 @@ export default function InputFile(props: InputFileProps) {
       </label>}
       <div className="input-group">
         <div className="custom-file">
-          <input type="file" className="custom-file-input" onChange={onChange} accept={props.accept} />
+          <input type="file" className="custom-file-input" onChange={onChange} accept={props.accept} disabled={props.disabled} />
           <label className="custom-file-label">{placeholder}</label>
         </div>
         {props.buttons}

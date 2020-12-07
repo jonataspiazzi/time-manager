@@ -20,18 +20,18 @@ export default function ContextMenuGroup(props: ContextMenuGroupProps) {
   return (
     <FieldSection title="Context Menu" sectionName="context-menu">
       <InputCheck
-        checked={props.info.enabled}
+        checked={props.info?.enabled}
         onChange={v => onChange('enabled', v)}
         label="Enabled"
         explanation="If enabled the context menu (radial menu) can be called by using the shortcut at any time, even if the there is no focus on the program." />
       <InputText
-        value={props.info.keyboardShortcut}
+        value={props.info?.keyboardShortcut}
         onChange={v => onChange('keyboardShortcut', v)}
         label="Shortcut"
         explanation="The keyboard shortcut to call the context menu (radial menu)."
         col={12} sm={4} lg={3} />
       <InputNumber
-        value={props.info.size}
+        value={props.info?.size}
         onChange={v => onChange('size', v)}
         label="Menu size"
         explanation="The size of the context menu (radial menu). This value is used to width and height."

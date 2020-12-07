@@ -9,6 +9,7 @@ export interface InputAudioProps {
   label?: string;
   explanation?: string;
   value?: string;
+  disabled?: boolean;
   onChange?: (value: string) => void;
 }
 
@@ -20,7 +21,7 @@ export default function InputAudio(props: InputAudioProps) {
   const Button = () => {
     return (
       <div className="input-group-append">
-        <button className="btn btn-outline-primary" onClick={preview} disabled={!props.value}>Listen</button>
+        <button className="btn btn-outline-primary" onClick={preview} disabled={!props.value || props.disabled}>Listen</button>
       </div>
     );
   }

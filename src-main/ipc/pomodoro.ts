@@ -1,7 +1,6 @@
 import { pomodoro } from '../business/pomodoro';
 import { IpcHelper } from '../helpers/ipc';
 import { PomodoroActionMap } from '../ipcTypes/pomodoro';
-import { getMainWindow } from '../components/windows/main';
 import { getContextWindow } from '../components/windows/context';
 
 const ipcHelper = new IpcHelper<PomodoroActionMap>('pomodoro');
@@ -11,11 +10,11 @@ export function setupPomodoroIpc() {
     return event.returnValue = pomodoro.getInfo();
   });
 
-  ipcHelper.addEventListener('toggleEnabled', () => {
-    pomodoro.enabled = !pomodoro.enabled;
+  ipcHelper.addEventListener('setInfo', (_, info) => {
+    pomodoro.setInfo(info);
   });
 
-  ipcHelper.addEventListener('startCycle', (_, cycle) => {
+  ipcHelper.addEventListener('start', (_, cycle) => {
     pomodoro.currentCycle = cycle;
     pomodoro.start();
   });
@@ -24,8 +23,7 @@ export function setupPomodoroIpc() {
     pomodoro.pause();
   });
 
-  pomodoro.addEventListener('tick', p => {
-    ipcHelper.dispatchEvent(getMainWindow(), 'onUpdate', p);
-    ipcHelper.dispatchEvent(getContextWindow(), 'onUpdate', p);
+  pomodoro.addEventListener('tick', () => {
+    ipcHelper.dispatchEvent(getContextWindow(), 'onChange', pomodoro.getInfo());
   });
 }

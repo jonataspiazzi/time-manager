@@ -6,7 +6,7 @@ export function useHistorySearchObject<T>(): T {
   const [obj, setObj] = useState<any>({});
 
   useEffect(() => {
-    const { search } = history.location;
+    const search = history.location.search;
 
     if (!search) setObj({});
 

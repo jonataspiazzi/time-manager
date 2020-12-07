@@ -8,9 +8,10 @@ export interface Option {
 export interface InputOptionProps {
   options: Option[];
   value: string | number;
-  onChange: (value: string | number) => void;
   label?: string;
   explanation?: string;
+  disabled?: boolean;
+  onChange: (value: string | number) => void;
 }
 
 export default function InputOption(props: InputOptionProps) {
@@ -25,7 +26,7 @@ export default function InputOption(props: InputOptionProps) {
       {props.label && <label>
         {props.label}
       </label>}
-      <select className="form-control" value={props.value} onChange={onChange}>
+      <select className="form-control" value={props.value} onChange={onChange} disabled={props.disabled}>
         {props.options.map(o =>
           <option key={o.key} value={o.key}>{o.value}</option>)}
       </select>

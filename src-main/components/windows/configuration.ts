@@ -20,7 +20,8 @@ function createWindow() {
     window = null;
   });
 
-  window.loadURL(windowUrl('main'));
+  console.log(windowUrl('configuration'));
+  window.loadURL(windowUrl('configuration'));
 
   if (!isDev) {
     window.setMenu(null);
@@ -33,7 +34,7 @@ function createWindow() {
   return window;
 }
 
-export function showMainWindow() {
+export function showConfigurationWindow() {
   if (!window) {
     window = createWindow();
   }
@@ -42,6 +43,6 @@ export function showMainWindow() {
   window.moveTop();
 }
 
-export function getMainWindow() {
+export function getConfigurationWindow() {
   return window;
 }

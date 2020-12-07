@@ -1,13 +1,14 @@
 import { BrowserWindow, ipcMain } from 'electron';
 import { IpcMainEvent } from 'electron/main';
+import { IpcHelperGlobalName } from '../ipcTypes/global';
 
 /**
  * Contains the basic funtionalities of a notifier object.
  */
 export class IpcHelper<T extends { [J in Extract<keyof T, string>]: (...args: any) => any }> {
-  private globalName: string;
+  private globalName: IpcHelperGlobalName;
 
-  constructor(globalName: string) {
+  constructor(globalName: IpcHelperGlobalName) {
     this.globalName = globalName;
   }
 

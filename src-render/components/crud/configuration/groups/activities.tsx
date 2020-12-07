@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import FieldSection from '../../global/fieldSection';
-import { ContextMenuInfo } from '../../../../../src-main/ipcTypes/contextMenu';
-import InputCheck from '../../inputs/check';
-import InputNumber from '../../inputs/number';
-import InputText from '../../inputs/text';
 
 export interface ActivitiesGroupProps {
   //info: ContextMenuInfo;
   //onChange: (info: ContextMenuInfo) => void;
 }
 
-export default function ActivitiesGroup(props: ActivitiesGroupProps) {
+export default function ActivitiesGroup() {
   const [items, setItems] = useState<number[]>([]);
 
   useEffect(() => {

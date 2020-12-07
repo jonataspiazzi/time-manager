@@ -1,0 +1,26 @@
+.collapsable-form {
+  &>.options {
+    margin-top: -38px;
+    padding-top: 38px;
+    margin-left: 7px;
+    padding-left: 14px;
+    max-height: 800px;
+    transition: max-height .5s, border-left .5s;
+    overflow: hidden;
+    box-sizing: content-box;
+
+    &.with-line {
+      margin-left: 5px;
+      border-left: 2px solid rgba(0, 123, 255, .3);
+
+      &.disabled {
+        border-left: 2px solid transparent;
+      }
+    }
+
+    &.disabled {
+      max-height: 0;
+    }
+  }
+}
+

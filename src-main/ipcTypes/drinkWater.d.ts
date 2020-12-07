@@ -1,20 +1,24 @@
-import { CycleFeatureInfo } from "./basic";
+import { CycleFeatureInfo, NotificationInfo } from "./global";
 
 export interface DrinkWaterInfo extends CycleFeatureInfo {
   /**
    * The time in minutes of each lap.
    */
   lapDuration: number;
+
+  /**
+   * Configuration about the notification of end of each cycle.
+   */
+  notification: NotificationInfo;
 }
 
 export interface DrinkWaterActionMap {
   // methods
   getInfo(): DrinkWaterInfo;
-  toggleEnabled(): void;
+  setInfo(info: DrinkWaterInfo): void;
   start(): void;
   pause(): void;
-  stop(): void;
 
   // events
-  onUpdate(info: DrinkWaterInfo): void;
+  onChange(info: DrinkWaterInfo): void;
 }

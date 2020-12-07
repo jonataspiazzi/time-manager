@@ -1,5 +1,5 @@
-import { CycleFeatureInfo } from "./basic";
 import { IpcMainEvent } from 'electron';
+import { CycleFeatureInfo, NotificationInfo } from "./global";
 
 export type PomodoroCycle = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
@@ -28,17 +28,30 @@ export interface PomodoroInfo extends CycleFeatureInfo {
    * The duration in minutes of the current cycle.
    */
   readonly currentCycleDuration: number;
+
+  /**
+   * Configuration about the notification of end of each pomodoro cycle.
+   */
+  pomodoroNotification: NotificationInfo;
+
+  /**
+   * Configuration about the notification of end of each short break.
+   */
+  shortBreakNotification: NotificationInfo;
+
+  /**
+   * Configuration about the notification of end of each long break.
+   */
+  longBreakNotification: NotificationInfo;
 }
 
 export interface PomodoroActionMap {
-  // getters
-  getInfo(): PomodoroInfo;
-
   // methods
-  toggleEnabled(): void;
-  startCycle(cycle: PomodoroCycle);
+  getInfo(): PomodoroInfo;
+  setInfo(info: PomodoroInfo);
+  start(cycle: PomodoroCycle);
   pause();
 
   // events
-  onUpdate(info: PomodoroInfo): void;
+  onChange(info: PomodoroInfo): void;
 }

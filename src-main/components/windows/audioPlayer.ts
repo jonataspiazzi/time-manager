@@ -4,7 +4,7 @@ import { windowUrl } from '../../helpers/windowUrl';
 
 let window: BrowserWindow | null;
 
-export function play(filename: string) {
+export function playAudio(filename: string) {
   window = new BrowserWindow({
     width: 600,
     height: 400,
@@ -22,7 +22,7 @@ export function play(filename: string) {
   window.loadURL(windowUrl(`audioPlayer?file=${encodeFilename(filename)}`));
 }
 
-export function stopPlaying() {
+export function stopAudio() {
   window?.close();
   window?.destroy();
   window = null;

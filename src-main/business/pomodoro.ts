@@ -1,10 +1,11 @@
 import { clockHelper } from '../helpers/clock';
 import { Notifier } from '../helpers/notifier';
 import { PomodoroInfo, PomodoroCycle } from '../ipcTypes/pomodoro';
+import { Notification } from './notification';
 
 export interface PomodoroMap {
   cycleEnd: (cycle: PomodoroCycle) => void;
-  tick: (actor: PomodoroInfo) => void;
+  tick: () => void;
 }
 
 export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
@@ -20,31 +21,6 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
   enabled: boolean;
 
   /**
-   * Defines if an audio should play at the end of a cycle
-   */
-  audioEnabled: boolean;
-
-  /**
-   * Audio file to play at the end of a cycle.
-   */
-  audioFilename: string;
-
-  /**
-   * Defines if an should lock all screens (with an image) at the end of a cycle.
-   */
-  screenLockEnabled: boolean;
-
-  /**
-   * An image to be display on screen lock.
-   */
-  screenLockFilename: string;
-
-  /**
-   * This option is valid only if screen lock is enabled. Determines if at a cycle end will the next cycle begin automatically or it'll wait on screen lock close event.
-   */
-  waitScreenLockClosed: boolean;
-
-  /**
    * Time in minutes of a dedicated activity.
    */
   pomodoroDuration: number;
@@ -58,6 +34,21 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
    * Time in minutes of a long break.
    */
   longBreakDuration: number;
+
+  /**
+ * Configuration about the notification of end of each pomodoro cycle.
+ */
+  pomodoroNotification: Notification;
+
+  /**
+   * Configuration about the notification of end of each short break.
+   */
+  shortBreakNotification: Notification;
+
+  /**
+   * Configuration about the notification of end of each long break.
+   */
+  longBreakNotification: Notification;
 
   /**
    * Get the number of the current cycle. Value between 0 to 7.
@@ -90,16 +81,16 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
 
   constructor() {
     super();
+
     this.enabled = false;
-    this.audioEnabled = true;
-    this.audioFilename = 'D:\\Downloads\\drinkWater.mp3';
-    this.screenLockEnabled = false;
-    this.screenLockFilename = 'D:\\Pictures\\Wallpaper\\wp04.jpg';
-    this.waitScreenLockClosed = true;
     this.pomodoroDuration = .25;
     this.shortBreakDuration = .01;
     this.longBreakDuration = .5;
     this.currentCycle = 0;
+
+    this.pomodoroNotification = new Notification('D:\\Downloads\\drinkWater.mp3', 'D:\\Pictures\\Wallpaper\\wp04.jpg');
+    this.shortBreakNotification = new Notification('D:\\Downloads\\drinkWater.mp3', 'D:\\Pictures\\Wallpaper\\wp04.jpg');
+    this.longBreakNotification = new Notification('D:\\Downloads\\drinkWater.mp3', 'D:\\Pictures\\Wallpaper\\wp04.jpg');
 
     clockHelper.addEventListener('tick', this.tick.bind(this));
   }
@@ -151,7 +142,7 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
   tick() {
     if (!this.enabled) return;
 
-    this.dispatchEvent('tick', this);
+    this.dispatchEvent('tick');
 
     if (this.currentTime > this.currentCycleDuration) {
       this.pause();
@@ -160,33 +151,27 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
   }
 
   getInfo() {
-    return {
-      enabled: this.enabled,
-      audioEnabled: this.audioEnabled,
-      audioFilename: this.audioFilename,
-      screenLockEnabled: this.screenLockEnabled,
-      screenLockFilename: this.screenLockFilename,
-      waitScreenLockClosed: this.waitScreenLockClosed,
-      pomodoroDuration: this.pomodoroDuration,
-      shortBreakDuration: this.shortBreakDuration,
-      longBreakDuration: this.longBreakDuration,
-      currentCycle: this.currentCycle,
-      currentCycleDuration: this.currentCycleDuration,
-      currentTime: this.currentTime
-    } as PomodoroInfo;
+    return JSON.parse(JSON.stringify(this)) as PomodoroInfo;
   }
 
-  updateInfo(config: PomodoroInfo) {
-    this.enabled = config.enabled;
-    this.audioEnabled = config.audioEnabled;
-    this.audioFilename = config.audioFilename;
-    this.screenLockEnabled = config.screenLockEnabled;
-    this.screenLockFilename = config.screenLockFilename;
-    this.waitScreenLockClosed = config.waitScreenLockClosed;
-    this.pomodoroDuration = config.pomodoroDuration;
-    this.shortBreakDuration = config.shortBreakDuration;
-    this.longBreakDuration = config.longBreakDuration;
-    this.currentCycle = config.currentCycle;
+  setInfo(info: PomodoroInfo) {
+    this.enabled = info.enabled;
+    this.pomodoroDuration = info.pomodoroDuration;
+    this.shortBreakDuration = info.shortBreakDuration;
+    this.longBreakDuration = info.longBreakDuration;
+    this.currentCycle = info.currentCycle;
+
+    if (info.pomodoroNotification) {
+      this.pomodoroNotification.update(info.pomodoroNotification);
+    }
+
+    if (info.shortBreakNotification) {
+      this.shortBreakNotification.update(info.shortBreakNotification);
+    }
+
+    if (info.pomodoroNotification) {
+      this.longBreakNotification.update(info.longBreakNotification);
+    }
   }
 }
 

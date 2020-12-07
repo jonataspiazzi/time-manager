@@ -1,10 +1,10 @@
 import { app, Menu, Tray } from "electron";
-import { showMainWindow } from "./main";
+import { showConfigurationWindow } from "./windows/configuration";
 
 let tray: Tray | null = null;
 
 function onShowConfiguration() {
-  showMainWindow();
+  showConfigurationWindow();
 }
 
 function onClose() {

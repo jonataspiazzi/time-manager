@@ -1,3 +1,5 @@
+import { IpcHelperGlobalName } from "../../src-main/ipcTypes/global";
+
 const { ipcRenderer } = window.require
   ? window.require('electron')
   : { // mock using render in browser.
@@ -20,10 +22,10 @@ interface ListenerMap {
  * Contains the basic funtionalities of a notifier object.
  */
 export class IpcHelper<T extends { [J in Extract<keyof T, string>]: (...args: any) => any }> {
-  private globalName: string;
+  private globalName: IpcHelperGlobalName;
   private readonly _listeners: ListenerMap[] = [];
 
-  constructor(globalName: string) {
+  constructor(globalName: IpcHelperGlobalName) {
     this.globalName = globalName;
   }
 

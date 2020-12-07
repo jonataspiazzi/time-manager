@@ -14,3 +14,12 @@ export interface ContextMenuInfo {
    */
   size?: number;
 }
+
+export interface ContextMenuActionMap {
+  // methods
+  getInfo(): ContextMenuInfo;
+  setInfo(info: ContextMenuInfo): void;
+
+  // events
+  onChange(info: ContextMenuInfo): void;
+}
