@@ -1,9 +1,7 @@
 import React from 'react';
+import { ConfigurationBridge } from '../../../../src-main/bridge/configuration';
+import { bridge } from '../../../helpers/getBridge';
 import InputFile from './file';
-import { GlobalActionMap } from '../../../../src-main/ipcTypes/global';
-import { IpcHelper } from '../../../helpers/ipc';
-
-const helper = new IpcHelper<GlobalActionMap>('global');
 
 export interface InputScreenLockProps {
   label?: string;
@@ -15,7 +13,7 @@ export interface InputScreenLockProps {
 
 export default function InputScreenLock(props: InputScreenLockProps) {
   function preview() {
-    helper.dispatchEvent('lockScreen', props.value);
+    bridge<ConfigurationBridge>().showScreenLock(props.value);
   }
 
   const Button = () => {

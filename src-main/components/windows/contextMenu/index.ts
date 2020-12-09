@@ -1,5 +1,7 @@
+import path from 'path';
 import { BrowserWindow, screen } from 'electron';
-import { windowUrl } from '../../helpers/windowUrl';
+import { windowUrl } from '../../../helpers/windowUrl';
+import './bridge';
 
 let window: BrowserWindow | null = null;
 
@@ -20,8 +22,10 @@ export function createWindow() {
     frame: false,
     show: false,
     webPreferences: {
-      nodeIntegration: true,
-      enableRemoteModule: true
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, './preload.js')
     }
   });
 
@@ -43,12 +47,12 @@ export function createWindow() {
     window?.close();
   });
 
-  window.loadURL(windowUrl('context'));
+  window.loadURL(windowUrl('context-menu'));
 
   return window;
 }
 
-export function showContextWindow() {
+export function showContextMenu() {
   if (window) {
     window.close();
   }
@@ -56,6 +60,6 @@ export function showContextWindow() {
   createWindow();
 }
 
-export function getContextWindow() {
+export function getContextMenuWindow() {
   return window;
 }

@@ -1,6 +1,8 @@
+import path from 'path';
 import { BrowserWindow, screen } from 'electron';
-import { encodeFilename } from '../../helpers/externalFileManager';
-import { windowUrl } from '../../helpers/windowUrl';
+import { encodeFilename } from '../../../helpers/externalFileManager';
+import { windowUrl } from '../../../helpers/windowUrl';
+import './bridge';
 
 const windows: Array<BrowserWindow | null> = [];
 
@@ -10,8 +12,10 @@ function createWindow(x: number, y: number, filename: string) {
     fullscreen: true,
     show: false,
     webPreferences: {
-      nodeIntegration: true,
-      enableRemoteModule: true
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, './preload.js')
     }
   });
 

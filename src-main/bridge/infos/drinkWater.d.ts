@@ -1,6 +1,7 @@
-import { CycleFeatureInfo, NotificationInfo } from "./global";
+import { NotificationInfo } from './notification';
+import { ClockFeature } from './clockFeature';
 
-export interface DrinkWaterInfo extends CycleFeatureInfo {
+export interface DrinkWaterInfo extends ClockFeature {
   /**
    * The time in minutes of each lap.
    */

@@ -1,15 +1,3 @@
-export interface CycleFeatureInfo {
-  /**
-   * Enables or disables this feature.
-   */
-  enabled: boolean;
-
-  /**
-   * The amout of milliseconds passed from start to now.
-   */
-  readonly currentTime: number;
-}
-
 export type AudioTrigger = 'begin' | 'end';
 
 export interface NotificationInfo {
@@ -50,14 +38,3 @@ export interface NotificationInfo {
    */
   waitScreenLockClosed: boolean;
 }
-
-export interface GlobalActionMap {
-  // methods
-  closeContext(): void;
-  lockScreen(filename: string): void;
-  unlockScreen(): void;
-  play(filename: string): void;
-  stopPlaying(): void;
-}
-
-export type IpcHelperGlobalName = 'global' | 'context-menu' | 'pomodoro' | 'drink-water';

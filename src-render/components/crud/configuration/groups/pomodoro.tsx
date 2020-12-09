@@ -1,5 +1,5 @@
 import React from 'react';
-import { PomodoroCycle, PomodoroInfo } from '../../../../../src-main/ipcTypes/pomodoro';
+import { PomodoroCycle, PomodoroInfo } from '../../../../../src-main/bridge/infos/pomodoro';
 import FieldSection from '../../global/fieldSection';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';

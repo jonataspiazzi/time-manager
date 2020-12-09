@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import base64url from 'base64url';
 import { useHistorySearchObject } from '../helpers/history';
-import { IpcHelper } from '../helpers/ipc';
-import { GlobalActionMap } from '../../src-main/ipcTypes/global';
-
-const helper = new IpcHelper<GlobalActionMap>('global');
+import { bridge } from '../helpers/getBridge';
+import { AudioPlayerBridge } from '../../src-main/bridge/audioPlayer';
 
 export interface AudioPlayerScreenQuery {
   file: string;
@@ -21,7 +19,7 @@ export default function AudioPlayerScreen() {
     });
 
     audioRef.current.addEventListener('ended', () => {
-      helper.dispatchEvent('stopPlaying');
+      bridge<AudioPlayerBridge>().closePlayer();
     });
   }, []);
 

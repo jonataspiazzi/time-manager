@@ -23,7 +23,7 @@ export default function InputFile(props: InputFileProps) {
       return;
     }
 
-    props.onChange(e.target.files[0].path);
+    props.onChange((e.target.files[0] as any).path);
   }
 
   useEffect(() => {

@@ -1,9 +1,7 @@
 import React from 'react';
+import { ConfigurationBridge } from '../../../../src-main/bridge/configuration';
+import { bridge } from '../../../helpers/getBridge';
 import InputFile from './file';
-import { GlobalActionMap } from '../../../../src-main/ipcTypes/global';
-import { IpcHelper } from '../../../helpers/ipc';
-
-const helper = new IpcHelper<GlobalActionMap>('global');
 
 export interface InputAudioProps {
   label?: string;
@@ -15,7 +13,7 @@ export interface InputAudioProps {
 
 export default function InputAudio(props: InputAudioProps) {
   function preview() {
-    helper.dispatchEvent('play', props.value);
+    bridge<ConfigurationBridge>().playAudio(props.value);
   }
 
   const Button = () => {

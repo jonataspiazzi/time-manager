@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PomodoroGroup from './groups/pomodoro';
 import SaveChanges from './utils/saveChanges';
 import ContextMenuGroup from './groups/contextMenu';
 import DrinkWaterGroup from './groups/drinkWater';
 import ActivitiesGroup from './groups/activities';
-import { IpcHelper } from '../../../helpers/ipc';
-import { PomodoroActionMap } from '../../../../src-main/ipcTypes/pomodoro';
-import { DrinkWaterActionMap } from '../../../../src-main/ipcTypes/drinkWater';
-import { ContextMenuActionMap } from '../../../../src-main/ipcTypes/contextMenu';
-
-const contextMenu = new IpcHelper<ContextMenuActionMap>('context-menu');
-const pomodoro = new IpcHelper<PomodoroActionMap>('pomodoro');
-const drinkWater = new IpcHelper<DrinkWaterActionMap>('drink-water');
+import { ContextMenuInfo } from '../../../../src-main/bridge/infos/contextMenu';
+import { DrinkWaterInfo } from '../../../../src-main/bridge/infos/drinkWater';
+import { PomodoroInfo } from '../../../../src-main/bridge/infos/pomodoro';
+import { ConfigurationBridge } from '../../../../src-main/bridge/configuration';
+import { bridge } from '../../../helpers/getBridge';
 
 type GroupNames = 'contextMenu' | 'pomodoro' | 'drinkWater';
 
@@ -21,21 +18,29 @@ export default function ConfigurationCrud() {
   const [drinkWaterInfoIsChanged, setDrinkWaterInfoIsChanged] = useState(false);
   const [pomodoroInfoIsChanged, setPomodoroInfoIsChanged] = useState(false);
 
-  const [contextMenuInfo, setContextMenuInfo] = useState(contextMenu.dispatchSyncEvent('getInfo'));
-  const [drinkWaterInfo, setDrinkWaterInfo] = useState(drinkWater.dispatchSyncEvent('getInfo'));
-  const [pomodoroInfo, setPomodoroInfo] = useState(pomodoro.dispatchSyncEvent('getInfo'));
+  const [contextMenuInfo, setContextMenuInfo] = useState<ContextMenuInfo>(null);
+  const [drinkWaterInfo, setDrinkWaterInfo] = useState<DrinkWaterInfo>(null);
+  const [pomodoroInfo, setPomodoroInfo] = useState<PomodoroInfo>(null);
+
+  useEffect(() => {
+    const { contextMenu, drinkWater, pomodoro } = bridge<ConfigurationBridge>().loadInfo();
+
+    setContextMenuInfo(contextMenu);
+    setDrinkWaterInfo(drinkWater);
+    setPomodoroInfo(pomodoro);
+  }, []);
 
   function saveChanges() {
     if (contextMenuInfoIsChanged) {
-      contextMenu.dispatchEvent('setInfo', contextMenuInfo);
+      bridge<ConfigurationBridge>().saveContextMenu(contextMenuInfo);
     }
 
     if (drinkWaterInfoIsChanged) {
-      drinkWater.dispatchEvent('setInfo', drinkWaterInfo);
+      bridge<ConfigurationBridge>().saveDrinkWater(drinkWaterInfo);
     }
 
     if (pomodoroInfoIsChanged) {
-      pomodoro.dispatchEvent('setInfo', pomodoroInfo);
+      bridge<ConfigurationBridge>().savePomodoro(pomodoroInfo);
     }
 
     setContextMenuInfoIsChanged(false);

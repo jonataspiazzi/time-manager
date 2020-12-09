@@ -1,6 +1,6 @@
 import React from 'react';
 import FieldSection from '../../global/fieldSection';
-import { DrinkWaterInfo } from '../../../../../src-main/ipcTypes/drinkWater';
+import { DrinkWaterInfo } from '../../../../../src-main/bridge/infos/drinkWater';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';
 import Notification from './notification';

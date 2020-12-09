@@ -1,6 +1,6 @@
 import { clockHelper } from '../helpers/clock';
 import { Notifier } from '../helpers/notifier';
-import { PomodoroInfo, PomodoroCycle } from '../ipcTypes/pomodoro';
+import { PomodoroInfo, PomodoroCycle } from '../bridge/infos/pomodoro';
 import { Notification } from './notification';
 
 export interface PomodoroMap {

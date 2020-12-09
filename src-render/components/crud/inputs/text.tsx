@@ -44,7 +44,7 @@ export default function InputText(props: InputTextProps) {
       </label>}
       <div className="row">
         <div className={colClass}>
-          <input className="form-control" type="text" placeholder={props.placeholder} value={props.value} onChange={onChange} />
+          <input className="form-control" type="text" placeholder={props.placeholder} value={props.value || ''} onChange={onChange} />
           {props.append && <div className="input-group-append">
             <span className="input-group-text">{props.append}</span>
           </div>}

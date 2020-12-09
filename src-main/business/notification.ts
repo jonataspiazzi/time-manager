@@ -1,6 +1,6 @@
-import { playAudio } from "../components/windows/audioPlayer";
-import { showScreenLock } from "../components/windows/screenLock";
-import { NotificationInfo, AudioTrigger } from "../ipcTypes/global";
+import { playAudio } from '../components/windows/audioPlayer';
+import { showScreenLock } from '../components/windows/screenLock';
+import { NotificationInfo, AudioTrigger } from '../bridge/infos/notification';
 
 export class Notification implements NotificationInfo {
   /**

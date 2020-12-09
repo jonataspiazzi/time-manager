@@ -1,6 +1,8 @@
+import path from 'path';
 import { BrowserWindow } from 'electron';
 import isDev from 'electron-is-dev';
-import { windowUrl } from '../../helpers/windowUrl';
+import { windowUrl } from '../../../helpers/windowUrl';
+import './bridge';
 
 let window: BrowserWindow | null = null;
 
@@ -11,8 +13,10 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
-      enableRemoteModule: true
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+      preload: path.join(__dirname, './preload.js')
     }
   });
 
@@ -20,7 +24,6 @@ function createWindow() {
     window = null;
   });
 
-  console.log(windowUrl('configuration'));
   window.loadURL(windowUrl('configuration'));
 
   if (!isDev) {

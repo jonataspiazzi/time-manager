@@ -1,9 +1,9 @@
-import { IpcMainEvent } from 'electron';
-import { CycleFeatureInfo, NotificationInfo } from "./global";
+import { ClockFeature } from './clockFeature';
+import { NotificationInfo } from './notification';
 
 export type PomodoroCycle = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
-export interface PomodoroInfo extends CycleFeatureInfo {
+export interface PomodoroInfo extends ClockFeature {
   /**
    * Time in minutes of a dedicated activity.
    */

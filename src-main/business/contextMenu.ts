@@ -1,4 +1,4 @@
-import { ContextMenuInfo } from "../ipcTypes/contextMenu";
+import { ContextMenuInfo } from '../bridge/infos/contextMenu';
 
 export default class ContextMenu implements ContextMenuInfo {
   /**

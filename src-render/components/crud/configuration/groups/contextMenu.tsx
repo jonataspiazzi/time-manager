@@ -1,6 +1,6 @@
 import React from 'react';
 import FieldSection from '../../global/fieldSection';
-import { ContextMenuInfo } from '../../../../../src-main/ipcTypes/contextMenu';
+import { ContextMenuInfo } from '../../../../../src-main/bridge/infos/contextMenu';
 import InputCheck from '../../inputs/check';
 import InputNumber from '../../inputs/number';
 import InputText from '../../inputs/text';

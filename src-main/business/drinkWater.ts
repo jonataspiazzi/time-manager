@@ -1,6 +1,6 @@
 import { clockHelper } from '../helpers/clock';
 import { Notifier } from '../helpers/notifier';
-import { DrinkWaterInfo } from '../ipcTypes/drinkWater';
+import { DrinkWaterInfo } from '../bridge/infos/drinkWater';
 import { Notification } from './notification';
 
 export interface DrinkWaterMap {

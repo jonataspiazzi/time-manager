@@ -57,7 +57,7 @@ export default function InputNumber(props: InputNumberProps) {
       </label>}
       <div className="row">
         <div className={colClass}>
-          <input className="form-control" type="text" placeholder={props.placeholder} value={value} onChange={onChange} />
+          <input className="form-control" type="text" placeholder={props.placeholder} value={value || 0} onChange={onChange} />
           {props.append && <div className="input-group-append">
             <span className="input-group-text">{props.append}</span>
           </div>}

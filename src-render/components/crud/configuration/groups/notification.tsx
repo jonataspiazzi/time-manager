@@ -1,5 +1,5 @@
 import React from 'react';
-import { NotificationInfo } from '../../../../../src-main/ipcTypes/global';
+import { NotificationInfo } from '../../../../../src-main/bridge/infos/notification';
 import CollapsableForm from '../../global/collapsableForm';
 import InputAudio from '../../inputs/audio';
 import InputCheck from '../../inputs/check';
