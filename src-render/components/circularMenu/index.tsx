@@ -21,22 +21,16 @@ export default function CircularMenu(props: CircularMenuProps) {
     setMenu(svg);
     svgHelper.setElement(refDiv.current);
     setLoaded(true);
+
+    for (const button of elementButtons) {
+      svgHelper.getElement(button).addEventListener('click', () => props.onClick(button));
+    }
+
+    svgHelper.getElement('close-center').addEventListener('click', () => props.onClose());
+    svgHelper.getElement('close-outfill').addEventListener('click', () => props.onClose());
   }
 
   useEffect(() => { load(); }, []);
-
-  useEffect(() => {
-    if (!loaded || !props.onClick) return;
-
-    for (const button of elementButtons) {
-      svgHelper.getElement(button).addEventListener('click', () => {
-        props.onClick(button);
-      });
-    }
-
-    svgHelper.getElement('close-center').addEventListener('click', props.onClose);
-    svgHelper.getElement('close-outfill').addEventListener('click', props.onClose);
-  }, [props.onClick, loaded]);
 
   useEffect(() => {
     svgHelper.setPomodoroProgress(props.pomodoro.currentCycle, props.pomodoro.currentTime, props.pomodoro.currentCycleDuration);

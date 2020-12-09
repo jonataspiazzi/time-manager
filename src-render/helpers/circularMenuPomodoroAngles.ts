@@ -44,7 +44,7 @@ export class CircularMenuPomodoroAngles {
   }
 
   calculateAngle(cycle: PomodoroCycle, currentTime: number, duration: number) {
-    const segment = this.all[cycle];
+    const segment = this.all[cycle || 0];
 
     return currentTime * (segment.end - segment.begin) / duration + segment.begin;
   }

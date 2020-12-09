@@ -151,7 +151,18 @@ export class Pomodoro extends Notifier<PomodoroMap> implements PomodoroInfo {
   }
 
   getInfo() {
-    return JSON.parse(JSON.stringify(this)) as PomodoroInfo;
+    return {
+      enabled: this.enabled,
+      pomodoroDuration: this.pomodoroDuration,
+      shortBreakDuration: this.shortBreakDuration,
+      longBreakDuration: this.longBreakDuration,
+      currentCycle: this.currentCycle,
+      currentCycleDuration: this.currentCycleDuration,
+      currentTime: this.currentTime,
+      pomodoroNotification: this.pomodoroNotification.getInfo(),
+      shortBreakNotification: this.shortBreakNotification.getInfo(),
+      longBreakNotification: this.longBreakNotification.getInfo()
+    } as PomodoroInfo;
   }
 
   setInfo(info: PomodoroInfo) {

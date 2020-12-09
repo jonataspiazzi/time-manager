@@ -82,4 +82,8 @@ export class Notification implements NotificationInfo {
       playAudio(this.audioFilename);
     }
   }
+
+  getInfo() {
+    return JSON.parse(JSON.stringify(this)) as NotificationInfo;
+  }
 }

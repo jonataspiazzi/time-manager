@@ -24,8 +24,6 @@ export default function AudioPlayerScreen() {
   }, []);
 
   useEffect(() => {
-    console.log('audio player ', { file: query.file });
-
     if (!query.file) {
       setFilename(null);
       return;

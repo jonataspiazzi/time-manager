@@ -9,7 +9,8 @@ export default function ContextMenuScreen() {
   const [pomodoroInfo, setPomodoroInfo] = useState<PomodoroInfo>({} as any);
 
   useEffect(() => {
-    const pomodoroInfo = bridge<ContextMenuBridge>().getPomodoro()
+    const pomodoroInfo = bridge<ContextMenuBridge>().getPomodoro();
+
     setPomodoroInfo(pomodoroInfo);
 
     bridge<ContextMenuBridge>().onPomodoroChanged(setPomodoroInfo);
@@ -19,21 +20,27 @@ export default function ContextMenuScreen() {
     switch (button) {
       case 'pomodoro-pause':
         bridge<ContextMenuBridge>().pausePomodoro();
+        console.log('elementOnClick pause');
         break;
       case 'pomodoro-p1':
         bridge<ContextMenuBridge>().startPomodoro(0);
+        console.log('elementOnClick p1');
         break;
       case 'pomodoro-p2':
         bridge<ContextMenuBridge>().startPomodoro(2);
+        console.log('elementOnClick p2');
         break;
       case 'pomodoro-p3':
         bridge<ContextMenuBridge>().startPomodoro(4);
+        console.log('elementOnClick p3');
         break;
       case 'pomodoro-p4':
         bridge<ContextMenuBridge>().startPomodoro(6);
+        console.log('elementOnClick p4');
         break;
       case 'pomodoro-b4':
         bridge<ContextMenuBridge>().startPomodoro(7);
+        console.log('elementOnClick b4');
         break;
     }
   }
